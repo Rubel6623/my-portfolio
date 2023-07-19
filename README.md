@@ -43,7 +43,7 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 ### Visit My Portfolio
 
-This section has moved here: [https://endearing-raindrop-64a171.netlify.app/](My-Portfolio)
+This section has moved here: [My-Portfolio](https://endearing-raindrop-64a171.netlify.app/)
 
 
 ### Deployment
