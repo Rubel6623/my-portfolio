@@ -2,10 +2,14 @@
 
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { useTheme } from "./ThemeProvider";
 
 export default function ContactSection() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className={`py-20 transition-colors duration-300 ${isDark ? "bg-slate-900" : "bg-slate-50"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -14,9 +18,9 @@ export default function ContactSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-100">Get In Touch</h2>
+          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? "text-slate-100" : "text-slate-900"}`}>Get In Touch</h2>
           <div className="h-1 w-20 bg-sky-500 mx-auto rounded-full mb-6"></div>
-          <p className="text-slate-400 max-w-2xl mx-auto">
+          <p className={`max-w-2xl mx-auto ${isDark ? "text-slate-400" : "text-slate-600"}`}>
             Have a question or want to work together? Feel free to reach out to me!
           </p>
         </motion.div>
@@ -28,24 +32,24 @@ export default function ContactSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="text-2xl font-semibold mb-6 text-slate-100">Contact Information</h3>
+            <h3 className={`text-2xl font-semibold mb-6 ${isDark ? "text-slate-100" : "text-slate-900"}`}>Contact Information</h3>
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-slate-800 rounded-lg text-sky-400">
+                <div className={`p-3 rounded-lg ${isDark ? "bg-slate-800" : "bg-slate-100"} text-sky-500`}>
                   <Mail size={24} />
                 </div>
                 <div>
-                  <h4 className="text-lg font-medium text-slate-200">Email</h4>
-                  <p className="text-slate-400 mt-1">rubelrudra27@gmail.com</p>
+                  <h4 className={`text-lg font-medium ${isDark ? "text-slate-200" : "text-slate-700"}`}>Email</h4>
+                  <p className={isDark ? "text-slate-400 mt-1" : "text-slate-600 mt-1"}>rubelrudra27@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-slate-800 rounded-lg text-sky-400">
+                <div className={`p-3 rounded-lg ${isDark ? "bg-slate-800" : "bg-slate-100"} text-sky-500`}>
                   <Phone size={24} />
                 </div>
                 <div>
-                  <h4 className="text-lg font-medium text-slate-200">Phone</h4>
-                  <p className="text-slate-400 mt-1">+8801576795952</p>
+                  <h4 className={`text-lg font-medium ${isDark ? "text-slate-200" : "text-slate-700"}`}>Phone</h4>
+                  <p className={isDark ? "text-slate-400 mt-1" : "text-slate-600 mt-1"}>+8801576795952</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">

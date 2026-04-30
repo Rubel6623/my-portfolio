@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTheme } from "./ThemeProvider";
 
 const skills = [
   { 
@@ -30,8 +31,11 @@ const skills = [
 ];
 
 export default function SkillsSection() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
-    <section id="skills" className="py-20">
+    <section id="skills" className={`py-20 transition-colors duration-300 ${isDark ? "bg-slate-900" : "bg-slate-50"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -40,10 +44,10 @@ export default function SkillsSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-100">My Skills</h2>
+          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? "text-slate-100" : "text-slate-900"}`}>My Skills</h2>
           <div className="h-1 w-20 bg-sky-500 mx-auto rounded-full mb-6"></div>
-          <p className="text-slate-400 max-w-2xl mx-auto">
-            I've worked with a variety of technologies in the web development world.
+          <p className={`max-w-2xl mx-auto ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+            I&apos;ve worked with a variety of technologies in the web development world.
             From Back-end To Design.
           </p>
         </motion.div>
