@@ -53,10 +53,10 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className={`py-12 backdrop-blur-sm transition-colors duration-300 ${
+      className={`py-12 backdrop-blur-sm transition-colors duration-300 border-t ${
         isDark
-          ? "py-12 border-t border-slate-800 bg-slate-900/50"
-          : "py-12 border-t border-slate-200 bg-slate-50"
+          ? "border-slate-800 bg-slate-900/50"
+          : "border-slate-200 bg-slate-50"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,7 +75,7 @@ export default function Footer() {
             </h3>
             <p
               className={`text-sm max-w-xs text-center md:text-left ${
-                isDark ? "text-slate-400" : "text-slate-600"
+                isDark ? "text-slate-400" : "text-text-muted"
               }`}
             >
               Building modern web applications with a focus on user experience
@@ -90,7 +90,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 className={`hover:text-white transition-colors ${
-                  isDark ? "text-slate-400" : "text-slate-600"
+                  isDark ? "text-slate-400" : "text-text-muted"
                 }`}
               >
                 <GithubIcon size={20} />
@@ -98,7 +98,7 @@ export default function Footer() {
               <a
                 href="https://www.linkedin.com/in/rubel-rudra-43ab54240"
                 className={`hover:text-white transition-colors ${
-                  isDark ? "text-slate-400" : "text-slate-600"
+                  isDark ? "text-slate-400" : "text-text-muted"
                 }`}
               >
                 <LinkedinIcon size={20} />
@@ -106,7 +106,7 @@ export default function Footer() {
               <a
                 href="#"
                 className={`hover:text-white transition-colors ${
-                  isDark ? "text-slate-400" : "text-slate-600"
+                  isDark ? "text-slate-400" : "text-text-muted"
                 }`}
               >
                 <TwitterIcon size={20} />
@@ -114,7 +114,7 @@ export default function Footer() {
               <a
                 href="mailto:rubelrudra27@gmail.com"
                 className={`hover:text-white transition-colors ${
-                  isDark ? "text-slate-400" : "text-slate-600"
+                  isDark ? "text-slate-400" : "text-text-muted"
                 }`}
               >
                 <Mail size={20} />

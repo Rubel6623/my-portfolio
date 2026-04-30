@@ -6,6 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useTheme } from "./ThemeProvider";
 
+import SpotlightCard from "./SpotlightCard";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutSection() {
@@ -48,7 +50,7 @@ export default function AboutSection() {
         "-=0.8"
       );
 
-      const cards = contentRef.current?.querySelectorAll(".about-card");
+      const cards = contentRef.current?.querySelectorAll(".about-card-wrapper");
       if (cards && cards.length > 0) {
         tl.fromTo(cards,
           { y: 30, opacity: 0 },
@@ -70,13 +72,13 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about"
-      className={`py-20 transition-colors duration-300 ${isDark ? "bg-slate-900" : "bg-slate-50"}`}
+      className={`py-20 transition-colors duration-300 ${isDark ? "bg-slate-900" : "bg-[var(--background)]"}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2
             ref={titleRef}
-            className={`text-4xl font-bold mb-4 ${isDark ? "text-slate-100" : "text-slate-900"}`}
+            className={`text-4xl font-bold mb-4 ${isDark ? "text-slate-100" : "text-foreground"}`}
           >
             About{" "}
             <span className={isDark ? "gradient-text" : "text-sky-600"}>Me</span>
@@ -104,7 +106,7 @@ export default function AboutSection() {
                 className={`relative w-72 h-72 lg:w-80 lg:h-80 rounded-2xl overflow-hidden border shadow-2xl shadow-sky-500/10 ${
                   isDark
                     ? "bg-slate-800 border-slate-700/50"
-                    : "bg-white border-slate-200"
+                    : "bg-[var(--card-bg)] border-[var(--card-border)]"
                 }`}
               >
                 <Image
@@ -120,14 +122,14 @@ export default function AboutSection() {
           <div ref={contentRef} className="flex-1">
             <h3
               className={`text-2xl font-semibold mb-4 ${
-                isDark ? "text-slate-100" : "text-slate-900"
+                isDark ? "text-slate-100" : "text-foreground"
               }`}
             >
               I&apos;m a Passionate Full Stack Developer
             </h3>
             <p
               className={`text-lg mb-6 leading-relaxed ${
-                isDark ? "text-slate-400" : "text-slate-600"
+                isDark ? "text-slate-400" : "text-text-muted"
               }`}
             >
               Hi, I&apos;m{" "}
@@ -141,7 +143,7 @@ export default function AboutSection() {
             </p>
             <p
               className={`text-lg mb-8 leading-relaxed ${
-                isDark ? "text-slate-400" : "text-slate-600"
+                isDark ? "text-slate-400" : "text-text-muted"
               }`}
             >
               With a strong foundation in both frontend and backend technologies,
@@ -151,62 +153,74 @@ export default function AboutSection() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div
-                className={`about-card p-4 rounded-xl border ${
+              <SpotlightCard
+                className={`about-card p-4 rounded-xl border !bg-transparent !p-0 ${
                   isDark
-                    ? "bg-slate-800/50 border-slate-700/50"
-                    : "bg-white border-slate-200"
+                    ? "border-slate-700/50"
+                    : "border-[var(--card-border)]"
                 }`}
+                spotlightColor={isDark ? "rgba(14, 165, 233, 0.15)" : "rgba(14, 165, 233, 0.1)"}
               >
-                <h4 className={isDark ? "text-sky-400" : "text-sky-600"}>
-                  Frontend
-                </h4>
-                <p className={isDark ? "text-slate-400" : "text-slate-500"}>
-                  React, Next.js, TypeScript, Tailwind CSS
-                </p>
-              </div>
-              <div
-                className={`about-card p-4 rounded-xl border ${
+                <div className="p-4">
+                  <h4 className={isDark ? "text-sky-400" : "text-sky-600"}>
+                    Frontend
+                  </h4>
+                  <p className={isDark ? "text-slate-400" : "text-slate-500"}>
+                    React, Next.js, TypeScript, Tailwind CSS
+                  </p>
+                </div>
+              </SpotlightCard>
+              <SpotlightCard
+                className={`about-card p-4 rounded-xl border !bg-transparent !p-0 ${
                   isDark
-                    ? "bg-slate-800/50 border-slate-700/50"
-                    : "bg-white border-slate-200"
+                    ? "border-slate-700/50"
+                    : "border-[var(--card-border)]"
                 }`}
+                spotlightColor={isDark ? "rgba(14, 165, 233, 0.15)" : "rgba(14, 165, 233, 0.1)"}
               >
-                <h4 className={isDark ? "text-sky-400" : "text-sky-600"}>
-                  Backend
-                </h4>
-                <p className={isDark ? "text-slate-400" : "text-slate-500"}>
-                  Node.js, Express, MongoDB, PostgreSQL
-                </p>
-              </div>
-              <div
-                className={`about-card p-4 rounded-xl border ${
+                <div className="p-4">
+                  <h4 className={isDark ? "text-sky-400" : "text-sky-600"}>
+                    Backend
+                  </h4>
+                  <p className={isDark ? "text-slate-400" : "text-slate-500"}>
+                    Node.js, Express, MongoDB, PostgreSQL
+                  </p>
+                </div>
+              </SpotlightCard>
+              <SpotlightCard
+                className={`about-card p-4 rounded-xl border !bg-transparent !p-0 ${
                   isDark
-                    ? "bg-slate-800/50 border-slate-700/50"
-                    : "bg-white border-slate-200"
+                    ? "border-slate-700/50"
+                    : "border-[var(--card-border)]"
                 }`}
+                spotlightColor={isDark ? "rgba(14, 165, 233, 0.15)" : "rgba(14, 165, 233, 0.1)"}
               >
-                <h4 className={isDark ? "text-sky-400" : "text-sky-600"}>
-                  Tools
-                </h4>
-                <p className={isDark ? "text-slate-400" : "text-slate-500"}>
-                  Git, Docker, AWS, Figma
-                </p>
-              </div>
-              <div
-                className={`about-card p-4 rounded-xl border ${
+                <div className="p-4">
+                  <h4 className={isDark ? "text-sky-400" : "text-sky-600"}>
+                    Tools
+                  </h4>
+                  <p className={isDark ? "text-slate-400" : "text-slate-500"}>
+                    Git, Docker, AWS, Figma
+                  </p>
+                </div>
+              </SpotlightCard>
+              <SpotlightCard
+                className={`about-card p-4 rounded-xl border !bg-transparent !p-0 ${
                   isDark
-                    ? "bg-slate-800/50 border-slate-700/50"
-                    : "bg-white border-slate-200"
+                    ? "border-slate-700/50"
+                    : "border-[var(--card-border)]"
                 }`}
+                spotlightColor={isDark ? "rgba(14, 165, 233, 0.15)" : "rgba(14, 165, 233, 0.1)"}
               >
-                <h4 className={isDark ? "text-sky-400" : "text-sky-600"}>
-                  Experience
-                </h4>
-                <p className={isDark ? "text-slate-400" : "text-slate-500"}>
-                  1+ Years Building Web Apps
-                </p>
-              </div>
+                <div className="p-4">
+                  <h4 className={isDark ? "text-sky-400" : "text-sky-600"}>
+                    Experience
+                  </h4>
+                  <p className={isDark ? "text-slate-400" : "text-slate-500"}>
+                    1+ Years Building Web Apps
+                  </p>
+                </div>
+              </SpotlightCard>
             </div>
           </div>
         </div>
@@ -214,3 +228,4 @@ export default function AboutSection() {
     </section>
   );
 }
+

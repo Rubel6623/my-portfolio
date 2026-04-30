@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTheme } from "./ThemeProvider";
 
+import SpotlightCard from "./SpotlightCard";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const techCategories = [
@@ -12,12 +14,12 @@ const techCategories = [
     title: "Frontend",
     icon: "🎨",
     technologies: [
-      { name: "React", icon: "⚛️" },
-      { name: "Next.js", icon: "▲" },
+      { name: "React.js", icon: "⚛️" },
+      { name: "Next.js", icon: "🚀" },
       { name: "TypeScript", icon: "📘" },
-      { name: "Tailwind CSS", icon: "💨" },
-      { name: "HTML5", icon: "🌐" },
-      { name: "CSS3", icon: "🎭" },
+      { name: "Tailwind CSS", icon: "🌊" },
+      { name: "Redux / Toolkit", icon: "🔄" },
+      { name: "GSAP / Framer", icon: "✨" },
     ],
   },
   {
@@ -25,23 +27,23 @@ const techCategories = [
     icon: "⚙️",
     technologies: [
       { name: "Node.js", icon: "🟢" },
-      { name: "Express", icon: "🚀" },
+      { name: "Express.js", icon: "🚂" },
       { name: "MongoDB", icon: "🍃" },
       { name: "PostgreSQL", icon: "🐘" },
-      { name: "REST API", icon: "🔌" },
-      { name: "GraphQL", icon: "◼️" },
+      { name: "RESTful APIs", icon: "🔗" },
+      { name: "Firebase / Appwrite", icon: "🔥" },
     ],
   },
   {
     title: "Tools & DevOps",
     icon: "🛠️",
     technologies: [
-      { name: "Git", icon: "📂" },
-      { name: "GitHub", icon: "🐙" },
+      { name: "Git / GitHub", icon: "🐙" },
       { name: "Docker", icon: "🐳" },
-      { name: "VS Code", icon: "💻" },
-      { name: "Figma", icon: "🎯" },
-      { name: "AWS", icon: "☁️" },
+      { name: "AWS / Vercel", icon: "☁️" },
+      { name: "Postman", icon: "📮" },
+      { name: "Figma", icon: "🎨" },
+      { name: "Linux / Bash", icon: "🐚" },
     ],
   },
 ];
@@ -117,19 +119,19 @@ export default function TechStackSection() {
     <section
       ref={sectionRef}
       id="techstack"
-      className={`py-20 transition-colors duration-300 ${isDark ? "bg-slate-950" : "bg-slate-100"}`}
+      className={`py-20 transition-colors duration-300 ${isDark ? "bg-slate-850" : "bg-[var(--background)]"}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2
             ref={titleRef}
-            className={`text-4xl font-bold mb-4 ${isDark ? "text-slate-100" : "text-slate-900"}`}
+            className={`text-4xl font-bold mb-4 ${isDark ? "text-slate-100" : "text-foreground"}`}
           >
             Tech <span className={isDark ? "gradient-text" : "text-sky-600"}>Stack</span>
           </h2>
           <p
             ref={descRef}
-            className={`text-lg max-w-2xl mx-auto ${isDark ? "text-slate-400" : "text-slate-600"}`}
+            className={`text-lg max-w-2xl mx-auto ${isDark ? "text-slate-400" : "text-text-muted"}`}
           >
             Technologies and tools I work with to build modern applications
           </p>
@@ -140,40 +142,43 @@ export default function TechStackSection() {
         </div>
 
         <div ref={gridRef} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {techCategories.map((category, categoryIndex) => (
-            <div
+          {techCategories.map((category) => (
+            <SpotlightCard
               key={category.title}
-              className={`tech-category-card rounded-2xl p-6 border transition-colors ${
+              className={`tech-category-card rounded-2xl border transition-colors !bg-transparent !p-0 ${
                 isDark
-                  ? "bg-slate-900/50 border-slate-800 hover:border-sky-500/50"
-                  : "bg-white border-slate-200 hover:border-sky-400"
+                  ? "border-slate-800 hover:border-sky-500/50"
+                  : "border-[var(--card-border)] hover:border-sky-400"
               }`}
+              spotlightColor={isDark ? "rgba(14, 165, 233, 0.15)" : "rgba(14, 165, 233, 0.1)"}
             >
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-3xl">{category.icon}</span>
-                <h3 className={`text-2xl font-semibold ${isDark ? "text-slate-100" : "text-slate-900"}`}>
-                  {category.title}
-                </h3>
-              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="text-3xl">{category.icon}</span>
+                  <h3 className={`text-2xl font-semibold ${isDark ? "text-slate-100" : "text-foreground"}`}>
+                    {category.title}
+                  </h3>
+                </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                {category.technologies.map((tech, techIndex) => (
-                  <div
-                    key={tech.name}
-                    className={`tech-item-card rounded-xl p-3 flex items-center gap-2 transition-all cursor-default ${
-                      isDark
-                        ? "bg-slate-800/50 border border-slate-700/50 hover:bg-slate-700/50 hover:border-sky-500/30"
-                        : "bg-slate-50 border border-slate-200 hover:bg-slate-100 hover:border-sky-300"
-                    }`}
-                  >
-                    <span className="text-xl">{tech.icon}</span>
-                    <span className={`text-sm font-medium ${isDark ? "text-slate-300" : "text-slate-700"}`}>
-                      {tech.name}
-                    </span>
-                  </div>
-                ))}
+                <div className="grid grid-cols-2 gap-3">
+                  {category.technologies.map((tech) => (
+                    <div
+                      key={tech.name}
+                      className={`tech-item-card rounded-xl p-3 flex items-center gap-2 transition-all cursor-default ${
+                        isDark
+                          ? "bg-slate-800/50 border border-slate-700/50 hover:bg-slate-700/50 hover:border-sky-500/30"
+                          : "bg-[var(--card-bg)] border border-[var(--card-border)] hover:bg-slate-100 hover:border-sky-300"
+                      }`}
+                    >
+                      <span className="text-xl">{tech.icon}</span>
+                      <span className={`text-sm font-medium ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+                        {tech.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </SpotlightCard>
           ))}
         </div>
 

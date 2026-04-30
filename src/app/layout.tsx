@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
-import Footer from "@/components/Footer";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,7 +26,7 @@ export default function RootLayout({
             <BackgroundWrapper />
             <Navbar />
             <main className="flex-1">{children}</main>
-            <Footer />
+            
           </ThemeProvider>
         </SmoothScrollProvider>
       </body>

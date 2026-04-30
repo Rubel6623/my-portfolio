@@ -98,7 +98,7 @@ export default function Hero() {
             <h1
               ref={titleRef}
               className={`text-5xl lg:text-7xl font-bold mb-6 ${
-                isDark ? "text-slate-100" : "text-slate-900"
+                isDark ? "text-slate-100" : "text-foreground"
               }`}
             >
               Hello, I&apos;m <br />
@@ -109,7 +109,7 @@ export default function Hero() {
             <p
               ref={descRef}
               className={`text-lg mb-8 max-w-2xl mx-auto lg:mx-0 text-balance ${
-                isDark ? "text-slate-400" : "text-slate-600"
+                isDark ? "text-slate-400" : "text-text-muted"
               }`}
             >
               I build exceptional and accessible digital experiences for the web.
@@ -134,7 +134,7 @@ export default function Hero() {
                 className={`px-8 py-3 rounded-full border font-medium transition-all ${
                   isDark
                     ? "border-slate-700 hover:bg-slate-800 text-slate-300"
-                    : "border-slate-300 hover:bg-slate-100 text-slate-700"
+                    : "border-[var(--card-border)] hover:bg-[var(--card-bg)] text-foreground"
                 }`}
               >
                 Download CV
@@ -147,7 +147,7 @@ export default function Hero() {
                   className={`p-3 rounded-full transition-colors ${
                     isDark
                       ? "bg-slate-800/50 border border-slate-700/50 hover:bg-slate-700 text-slate-300 hover:text-white"
-                      : "bg-slate-100 border border-slate-200 hover:bg-slate-200 text-slate-600 hover:text-slate-900"
+                      : "bg-[var(--card-bg)] border border-[var(--card-border)] hover:bg-[var(--background)] text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <GithubIcon size={20} />
@@ -157,7 +157,7 @@ export default function Hero() {
                   className={`p-3 rounded-full transition-colors ${
                     isDark
                       ? "bg-slate-800/50 border border-slate-700/50 hover:bg-slate-700 text-slate-300 hover:text-white"
-                      : "bg-slate-100 border border-slate-200 hover:bg-slate-200 text-slate-600 hover:text-slate-900"
+                      : "bg-[var(--card-bg)] border border-[var(--card-border)] hover:bg-[var(--background)] text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <LinkedinIcon size={20} />
@@ -167,7 +167,7 @@ export default function Hero() {
                   className={`p-3 rounded-full transition-colors ${
                     isDark
                       ? "bg-slate-800/50 border border-slate-700/50 hover:bg-slate-700 text-slate-300 hover:text-white"
-                      : "bg-slate-100 border border-slate-200 hover:bg-slate-200 text-slate-600 hover:text-slate-900"
+                      : "bg-[var(--card-bg)] border border-[var(--card-border)] hover:bg-[var(--background)] text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <Mail size={20} />
@@ -193,7 +193,7 @@ export default function Hero() {
                 className={`absolute inset-0 rounded-2xl border overflow-hidden flex items-center justify-center backdrop-blur-xl shadow-2xl ${
                   isDark
                     ? "bg-slate-800 border-slate-700/50 shadow-sky-500/10"
-                    : "bg-white border-slate-200 shadow-sky-500/10"
+                    : "bg-[var(--card-bg)] border-[var(--card-border)] shadow-sky-500/10"
                 }`}
               >
                 <div
@@ -215,7 +215,7 @@ export default function Hero() {
                   className={`absolute bottom-10 right-10 p-4 rounded-xl backdrop-blur-md shadow-lg ${
                     isDark
                       ? "bg-slate-900/80 border border-slate-700"
-                      : "bg-white/80 border border-slate-200"
+                      : "bg-[var(--card-bg)]/80 border border-[var(--card-border)]"
                   }`}
                 >
                   <span className="text-2xl">🚀</span>

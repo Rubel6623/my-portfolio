@@ -3,6 +3,7 @@
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-text-muted: var(--text-secondary);
 }
 
 @layer utilities {
@@ -11,25 +12,25 @@
   }
 }
 
-/* Light Theme (Default) */
+/* Light Theme (Gray White) */
 :root,
 [data-theme="light"] {
-  --background: #f8fafc; /* slate-50 */
-  --foreground: #0f172a; /* slate-900 */
-  --card-bg: #ffffff;
-  --card-border: #e2e8f0;
-  --nav-bg: rgba(255, 255, 255, 0.9);
-  --text-secondary: #64748b;
-  --accent: #0ea5e9;
+  --background: #c9d1dc;
+  --foreground: #020617; /* slate-950 for maximum contrast */
+  --card-bg: #d1d9e3; 
+  --card-border: #b8c1cd;
+  --nav-bg: rgba(201, 209, 220, 0.85);
+  --text-secondary: #334155; /* slate-700 */
+  --accent: #0284c7; /* sky-700 */
 }
 
-/* Dark Theme */
+/* Dark Theme (Default) */
 [data-theme="dark"] {
   --background: #0f172a; /* slate-900 */
   --foreground: #f8fafc; /* slate-50 */
   --card-bg: #1e293b;
   --card-border: #334155;
-  --nav-bg: rgba(15, 23, 42, 0.9);
+  --nav-bg: rgba(15, 23, 42, 0.85);
   --text-secondary: #94a3b8;
   --accent: #38bdf8;
 }

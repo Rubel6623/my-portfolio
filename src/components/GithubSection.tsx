@@ -6,6 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { GitHubCalendar } from "react-github-calendar";
 import { useTheme } from "./ThemeProvider";
 
+import SpotlightCard from "./SpotlightCard";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function GithubSection() {
@@ -62,7 +64,7 @@ export default function GithubSection() {
       ref={sectionRef}
       id="github"
       className={`py-20 transition-colors duration-300 ${
-        isDark ? "bg-slate-900/50" : "bg-slate-100"
+        isDark ? "bg-slate-900/50" : "bg-[var(--background)]"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,7 +72,7 @@ export default function GithubSection() {
           <h2
             ref={titleRef}
             className={`text-3xl md:text-4xl font-bold mb-4 ${
-              isDark ? "text-slate-100" : "text-slate-900"
+              isDark ? "text-slate-100" : "text-foreground"
             }`}
           >
             Days I Code
@@ -82,36 +84,38 @@ export default function GithubSection() {
           <p
             ref={descRef}
             className={`max-w-2xl mx-auto mt-6 ${
-              isDark ? "text-slate-400" : "text-slate-600"
+              isDark ? "text-slate-400" : "text-text-muted"
             }`}
           >
             A visual representation of my contribution activity on GitHub.
           </p>
         </div>
 
-        <div
-          ref={calendarRef}
-          className={`flex justify-center p-8 rounded-xl border overflow-x-auto ${
-            isDark
-              ? "bg-slate-800 p-8 border-slate-700"
-              : "bg-white p-8 border-slate-200"
-          }`}
-        >
-          <div className={isDark ? "text-slate-200" : "text-slate-800"}>
-            {mounted && (
-              <GitHubCalendar
-                username="Rubel6623"
-                colorScheme={isDark ? "dark" : "light"}
-                blockSize={14}
-                blockMargin={6}
-                fontSize={14}
-                theme={{
-                  dark: ["#1e293b", "#0ea5e9", "#0284c7", "#0369a1", "#075985"],
-                  light: ["#e2e8f0", "#7dd3fc", "#38bdf8", "#0ea5e9", "#0284c7"],
-                }}
-              />
-            )}
-          </div>
+        <div ref={calendarRef}>
+          <SpotlightCard
+            className={`flex justify-center rounded-xl border overflow-x-auto !bg-transparent !p-0 ${
+              isDark
+                ? "border-slate-700"
+                : "border-[var(--card-border)]"
+            }`}
+            spotlightColor={isDark ? "rgba(14, 165, 233, 0.15)" : "rgba(14, 165, 233, 0.1)"}
+          >
+            <div className={`p-8 ${isDark ? "text-slate-200" : "text-slate-800"}`}>
+              {mounted && (
+                <GitHubCalendar
+                  username="Rubel6623"
+                  colorScheme={isDark ? "dark" : "light"}
+                  blockSize={14}
+                  blockMargin={6}
+                  fontSize={14}
+                  theme={{
+                    dark: ["#1e293b", "#0ea5e9", "#0284c7", "#0369a1", "#075985"],
+                    light: ["#e2e8f0", "#7dd3fc", "#38bdf8", "#0ea5e9", "#0284c7"],
+                  }}
+                />
+              )}
+            </div>
+          </SpotlightCard>
         </div>
       </div>
     </section>

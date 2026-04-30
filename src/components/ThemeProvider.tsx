@@ -15,7 +15,7 @@ const ThemeContext = createContext<ThemeContextType>({
 });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -38,11 +38,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   };
 
   // Prevent hydration mismatch by ensuring the first render always matches the server.
-  // The server always renders with the default "light" theme initially.
+  // The server always renders with the default "dark" theme initially now.
   // Once mounted on the client, we trigger a re-render with the actual saved theme.
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: "light", toggleTheme: () => {} }}>
+      <ThemeContext.Provider value={{ theme: "dark", toggleTheme: () => {} }}>
         <div style={{ visibility: "hidden" }}>{children}</div>
       </ThemeContext.Provider>
     );

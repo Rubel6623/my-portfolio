@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTheme } from "./ThemeProvider";
 
+import SpotlightCard from "./SpotlightCard";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const educationData = [
@@ -95,7 +97,7 @@ export default function EducationAndExperience() {
       ref={sectionRef}
       id="education-experience"
       className={`py-20 transition-colors duration-300 ${
-        isDark ? "bg-slate-900" : "bg-slate-50"
+        isDark ? "bg-slate-900" : "bg-[var(--background)]"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,7 +105,7 @@ export default function EducationAndExperience() {
           <h2
             ref={titleRef}
             className={`text-3xl md:text-4xl font-bold mb-4 ${
-              isDark ? "text-slate-100" : "text-slate-900"
+              isDark ? "text-slate-100" : "text-foreground"
             }`}
           >
             Education & Experience
@@ -111,7 +113,7 @@ export default function EducationAndExperience() {
           <div className="h-1 w-20 bg-sky-500 mx-auto rounded-full mb-6"></div>
           <p
             className={`max-w-2xl mx-auto ${
-              isDark ? "text-slate-400" : "text-slate-600"
+              isDark ? "text-slate-400" : "text-text-muted"
             }`}
           >
             A showcase of my academic journey and professional growth
@@ -120,7 +122,7 @@ export default function EducationAndExperience() {
 
         <div className="relative max-w-7xl mx-auto pt-8">
           {/* Vertical Line */}
-          <div className={`hidden lg:block absolute left-1/2 top-0 bottom-0 w-px transform -translate-x-1/2 ${isDark ? "bg-slate-800" : "bg-slate-200"}`}></div>
+          <div className={`hidden lg:block absolute left-1/2 top-0 bottom-0 w-px transform -translate-x-1/2 ${isDark ? "bg-slate-800" : "bg-[var(--card-border)]"}`}></div>
 
           <div
             ref={cardsRef}
@@ -132,43 +134,46 @@ export default function EducationAndExperience() {
                 Education
               </h3>
               {educationData.map((item, index) => (
-                <div
+                <SpotlightCard
                   key={`edu-${index}`}
-                  className={`edu-card rounded-xl p-8 transition-all hover:scale-[1.02] relative ${
+                  className={`edu-card rounded-xl transition-all hover:scale-[1.02] relative !bg-transparent !p-0 ${
                     isDark
-                      ? "bg-slate-800/50 border border-slate-700/50 hover:border-sky-500/30"
-                      : "bg-white border border-slate-200 hover:border-sky-400"
+                      ? "border-slate-700/50 hover:border-sky-500/30"
+                      : "border-[var(--card-border)] hover:border-sky-400"
                   }`}
+                  spotlightColor={isDark ? "rgba(14, 165, 233, 0.1)" : "rgba(14, 165, 233, 0.05)"}
                 >
-                  <h3
-                    className={`text-xl md:text-2xl font-bold mb-2 ${
-                      isDark ? "text-slate-100" : "text-slate-900"
-                    }`}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    className={`text-lg mb-2 ${
-                      isDark ? "text-sky-400" : "text-sky-600"
-                    }`}
-                  >
-                    {item.institution}
-                  </p>
-                  <p
-                    className={`text-sm mb-4 ${
-                      isDark ? "text-slate-500" : "text-slate-500"
-                    }`}
-                  >
-                    {item.year}
-                  </p>
-                  <p
-                    className={`leading-relaxed ${
-                      isDark ? "text-slate-400" : "text-slate-600"
-                    }`}
-                  >
-                    {item.description}
-                  </p>
-                </div>
+                  <div className="p-8">
+                    <h3
+                      className={`text-xl md:text-2xl font-bold mb-2 ${
+                        isDark ? "text-slate-100" : "text-foreground"
+                      }`}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      className={`text-lg mb-2 ${
+                        isDark ? "text-sky-400" : "text-sky-600"
+                      }`}
+                    >
+                      {item.institution}
+                    </p>
+                    <p
+                      className={`text-sm mb-4 ${
+                        isDark ? "text-slate-500" : "text-slate-500"
+                      }`}
+                    >
+                      {item.year}
+                    </p>
+                    <p
+                      className={`leading-relaxed ${
+                        isDark ? "text-slate-400" : "text-text-muted"
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+                </SpotlightCard>
               ))}
             </div>
 
@@ -178,43 +183,46 @@ export default function EducationAndExperience() {
                 Training & Achievements
               </h3>
               {experienceData.map((item, index) => (
-                <div
+                <SpotlightCard
                   key={`exp-${index}`}
-                  className={`edu-card rounded-xl p-8 transition-all hover:scale-[1.02] relative ${
+                  className={`edu-card rounded-xl transition-all hover:scale-[1.02] relative !bg-transparent !p-0 ${
                     isDark
-                      ? "bg-slate-800/50 border border-slate-700/50 hover:border-sky-500/30"
-                      : "bg-white border border-slate-200 hover:border-sky-400"
+                      ? "border-slate-700/50 hover:border-sky-500/30"
+                      : "border-[var(--card-border)] hover:border-sky-400"
                   }`}
+                  spotlightColor={isDark ? "rgba(14, 165, 233, 0.1)" : "rgba(14, 165, 233, 0.05)"}
                 >
-                  <h3
-                    className={`text-xl md:text-2xl font-bold mb-2 ${
-                      isDark ? "text-slate-100" : "text-slate-900"
-                    }`}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    className={`text-lg mb-2 ${
-                      isDark ? "text-sky-400" : "text-sky-600"
-                    }`}
-                  >
-                    {item.institution}
-                  </p>
-                  <p
-                    className={`text-sm mb-4 ${
-                      isDark ? "text-slate-500" : "text-slate-500"
-                    }`}
-                  >
-                    {item.year}
-                  </p>
-                  <p
-                    className={`leading-relaxed ${
-                      isDark ? "text-slate-400" : "text-slate-600"
-                    }`}
-                  >
-                    {item.description}
-                  </p>
-                </div>
+                  <div className="p-8">
+                    <h3
+                      className={`text-xl md:text-2xl font-bold mb-2 ${
+                        isDark ? "text-slate-100" : "text-foreground"
+                      }`}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      className={`text-lg mb-2 ${
+                        isDark ? "text-sky-400" : "text-sky-600"
+                      }`}
+                    >
+                      {item.institution}
+                    </p>
+                    <p
+                      className={`text-sm mb-4 ${
+                        isDark ? "text-slate-500" : "text-slate-500"
+                      }`}
+                    >
+                      {item.year}
+                    </p>
+                    <p
+                      className={`leading-relaxed ${
+                        isDark ? "text-slate-400" : "text-text-muted"
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+                </SpotlightCard>
               ))}
             </div>
           </div>

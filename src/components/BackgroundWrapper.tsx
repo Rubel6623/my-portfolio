@@ -12,8 +12,8 @@ export default function BackgroundWrapper() {
       speed={0.35}
       squareSize={25}
       direction="diagonal"
-      borderColor={isDark ? "#7854b6" : "#a886e0"}
-      hoverFillColor={isDark ? "#222222" : "#f0f0f0"}
+      borderColor={isDark ? "#7854b6" : "#b8c1cd"}
+      hoverFillColor={isDark ? "#222222" : "#d1d9e3"}
       shape="hexagon"
       hoverTrailAmount={5}
     />
