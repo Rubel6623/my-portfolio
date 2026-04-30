@@ -1,10 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ExternalLink } from "lucide-react";
 import { GithubIcon } from "./BrandIcons";
 import Image from "next/image";
 import { useTheme } from "./ThemeProvider";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
@@ -49,31 +53,76 @@ export default function ProjectsSection() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  return (
-    <section id="projects" className={`py-20 transition-colors duration-300 ${isDark ? "bg-slate-900/50" : "bg-slate-100"}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? "text-slate-100" : "text-slate-900"}`}>Featured Projects</h2>
-          <div className="h-1 w-20 bg-sky-500 mx-auto rounded-full"></div>
-        </motion.div>
+  const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        defaults: { ease: "power3.out" }
+      });
+
+      tl.fromTo(titleRef.current, 
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 }
+      )
+      .fromTo(lineRef.current, 
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.8, transformOrigin: "center" },
+        "-=0.6"
+      );
+
+      const cards = gridRef.current ? gsap.utils.toArray(".project-card", gridRef.current) : [];
+      if (cards.length) {
+        tl.fromTo(cards, 
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.2,
+          },
+          "-=0.4"
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      id="projects"
+      className={`py-20 transition-colors duration-300 ${isDark ? "bg-slate-900/50" : "bg-slate-100"}`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2
+            ref={titleRef}
+            className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? "text-slate-100" : "text-slate-900"}`}
+          >
+            Featured Projects
+          </h2>
+          <div
+            ref={lineRef}
+            className="h-1 w-20 bg-sky-500 mx-auto rounded-full"
+          ></div>
+        </div>
+
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`rounded-2xl overflow-hidden border transition-all hover:bg-slate-800/60 group flex flex-col h-full ${
-                isDark 
-                  ? "bg-slate-800/40 border-slate-700/50 hover:border-sky-500/30" 
+              className={`project-card rounded-2xl overflow-hidden border transition-all hover:bg-slate-800/60 group flex flex-col h-full ${
+                isDark
+                  ? "bg-slate-800/40 border-slate-700/50 hover:border-sky-500/30"
                   : "bg-white border-slate-200 hover:border-sky-400"
               }`}
             >
@@ -95,8 +144,8 @@ export default function ProjectsSection() {
                 <div className="flex flex-wrap gap-2 mb-8 mt-auto">
                   {project.tags.map((tag, i) => (
                     <span key={i} className={`px-2.5 py-1 text-[10px] uppercase tracking-wider font-semibold rounded border ${
-                      isDark 
-                        ? "bg-slate-900/50 text-slate-300 border-slate-700/50" 
+                      isDark
+                        ? "bg-slate-900/50 text-slate-300 border-slate-700/50"
                         : "bg-slate-100 text-slate-600 border-slate-200"
                     }`}>
                       {tag}
@@ -134,7 +183,7 @@ export default function ProjectsSection() {
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

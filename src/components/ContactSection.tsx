@@ -1,84 +1,181 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ContactSection() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
+  const contactGridRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        defaults: { ease: "power3.out" }
+      });
+
+      tl.fromTo(titleRef.current, 
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 }
+      )
+      .fromTo(lineRef.current, 
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.8 },
+        "-=0.6"
+      )
+      .fromTo(descRef.current, 
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 },
+        "-=0.6"
+      )
+      .fromTo(contactGridRef.current, 
+        { x: -50, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.8 },
+        "-=0.4"
+      )
+      .fromTo(formRef.current, 
+        { x: 50, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.8 },
+        "-=0.6"
+      );
+
+      const infoItems = contactGridRef.current?.querySelectorAll(".contact-info-item");
+      if (infoItems && infoItems.length > 0) {
+        tl.fromTo(infoItems, {
+          x: -20,
+          opacity: 0
+        }, {
+          x: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.1,
+        }, "-=0.6");
+      }
+
+      const formInputs = formRef.current?.querySelectorAll("input, textarea, button");
+      if (formInputs && formInputs.length > 0) {
+        tl.fromTo(formInputs, {
+          y: 20,
+          opacity: 0
+        }, {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.1,
+        }, "-=0.6");
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="contact" className={`py-20 transition-colors duration-300 ${isDark ? "bg-slate-900" : "bg-slate-50"}`}>
+    <section
+      ref={sectionRef}
+      id="contact"
+      className={`py-20 transition-colors duration-300 ${isDark ? "bg-slate-900" : "bg-slate-50"}`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? "text-slate-100" : "text-slate-900"}`}>Get In Touch</h2>
-          <div className="h-1 w-20 bg-sky-500 mx-auto rounded-full mb-6"></div>
-          <p className={`max-w-2xl mx-auto ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+        <div className="text-center mb-16">
+          <h2
+            ref={titleRef}
+            className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? "text-slate-100" : "text-slate-900"}`}
+          >
+            Get In Touch
+          </h2>
+          <div
+            ref={lineRef}
+            className="h-1 w-20 bg-sky-500 mx-auto rounded-full"
+          ></div>
+          <p
+            ref={descRef}
+            className={`max-w-2xl mx-auto mt-6 ${isDark ? "text-slate-400" : "text-slate-600"}`}
+          >
             Have a question or want to work together? Feel free to reach out to me!
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h3 className={`text-2xl font-semibold mb-6 ${isDark ? "text-slate-100" : "text-slate-900"}`}>Contact Information</h3>
+          <div ref={contactGridRef}>
+            <h3 className={`text-2xl font-semibold mb-6 ${isDark ? "text-slate-100" : "text-slate-900"}`}>
+              Contact Information
+            </h3>
             <div className="space-y-6">
-              <div className="flex items-start gap-4">
+              <div className="contact-info-item flex items-start gap-4">
                 <div className={`p-3 rounded-lg ${isDark ? "bg-slate-800" : "bg-slate-100"} text-sky-500`}>
                   <Mail size={24} />
                 </div>
                 <div>
-                  <h4 className={`text-lg font-medium ${isDark ? "text-slate-200" : "text-slate-700"}`}>Email</h4>
-                  <p className={isDark ? "text-slate-400 mt-1" : "text-slate-600 mt-1"}>rubelrudra27@gmail.com</p>
+                  <h4 className={`text-lg font-medium ${isDark ? "text-slate-200" : "text-slate-700"}`}>
+                    Email
+                  </h4>
+                  <p className={isDark ? "text-slate-400 mt-1" : "text-slate-600 mt-1"}>
+                    rubelrudra27@gmail.com
+                  </p>
                 </div>
               </div>
-              <div className="flex items-start gap-4">
+              <div className="contact-info-item flex items-start gap-4">
                 <div className={`p-3 rounded-lg ${isDark ? "bg-slate-800" : "bg-slate-100"} text-sky-500`}>
                   <Phone size={24} />
                 </div>
                 <div>
-                  <h4 className={`text-lg font-medium ${isDark ? "text-slate-200" : "text-slate-700"}`}>Phone</h4>
-                  <p className={isDark ? "text-slate-400 mt-1" : "text-slate-600 mt-1"}>+8801576795952</p>
+                  <h4 className={`text-lg font-medium ${isDark ? "text-slate-200" : "text-slate-700"}`}>
+                    Phone
+                  </h4>
+                  <p className={isDark ? "text-slate-400 mt-1" : "text-slate-600 mt-1"}>
+                    +8801576795952
+                  </p>
                 </div>
               </div>
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-slate-800 rounded-lg text-sky-400">
+              <div className="contact-info-item flex items-start gap-4">
+                <div className={`p-3 rounded-lg ${isDark ? "bg-slate-800" : "bg-slate-100"} text-sky-500`}>
                   <MapPin size={24} />
                 </div>
                 <div>
-                  <h4 className="text-lg font-medium text-slate-200">Location</h4>
-                  <p className="text-slate-400 mt-1">Chittagong, Bangladesh</p>
+                  <h4 className={`text-lg font-medium ${isDark ? "text-slate-200" : "text-slate-700"}`}>
+                    Location
+                  </h4>
+                  <p className={isDark ? "text-slate-400 mt-1" : "text-slate-600 mt-1"}>
+                    Chittagong, Bangladesh
+                  </p>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="bg-slate-800 p-8 rounded-xl border border-slate-700"
+          <div
+            ref={formRef}
+            className={`p-8 rounded-xl border ${
+              isDark
+                ? "bg-slate-800 border-slate-700"
+                : "bg-white border-slate-200"
+            }`}
           >
             <form action="https://formsubmit.co/rubelrudra27@gmail.com" method="POST" className="space-y-6">
-              {/* Optional: Configuration for formsubmit.co */}
               <input type="hidden" name="_subject" value="New message from your portfolio!" />
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_template" value="table" />
-              
+
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
+                <label
+                  htmlFor="name"
+                  className={`block text-sm font-medium mb-2 ${isDark ? "text-slate-300" : "text-slate-700"}`}
+                >
                   Your Name
                 </label>
                 <input
@@ -86,12 +183,19 @@ export default function ContactSection() {
                   id="name"
                   name="name"
                   required
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-slate-200 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors"
+                  className={`w-full rounded-lg px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors ${
+                    isDark
+                      ? "bg-slate-900 border border-slate-700 text-slate-200"
+                      : "bg-slate-50 border border-slate-200 text-slate-700"
+                  }`}
                   placeholder="John Doe"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+                <label
+                  htmlFor="email"
+                  className={`block text-sm font-medium mb-2 ${isDark ? "text-slate-300" : "text-slate-700"}`}
+                >
                   Your Email
                 </label>
                 <input
@@ -99,12 +203,19 @@ export default function ContactSection() {
                   id="email"
                   name="email"
                   required
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-slate-200 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors"
+                  className={`w-full rounded-lg px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors ${
+                    isDark
+                      ? "bg-slate-900 border border-slate-700 text-slate-200"
+                      : "bg-slate-50 border border-slate-200 text-slate-700"
+                  }`}
                   placeholder="john@example.com"
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
+                <label
+                  htmlFor="message"
+                  className={`block text-sm font-medium mb-2 ${isDark ? "text-slate-300" : "text-slate-700"}`}
+                >
                   Message
                 </label>
                 <textarea
@@ -112,7 +223,11 @@ export default function ContactSection() {
                   name="message"
                   required
                   rows={4}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-slate-200 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors resize-none"
+                  className={`w-full rounded-lg px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors resize-none ${
+                    isDark
+                      ? "bg-slate-900 border border-slate-700 text-slate-200"
+                      : "bg-slate-50 border border-slate-200 text-slate-700"
+                  }`}
                   placeholder="How can I help you?"
                 ></textarea>
               </div>
@@ -123,7 +238,7 @@ export default function ContactSection() {
                 Send Message <Send size={18} />
               </button>
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

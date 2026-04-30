@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import SmoothScrollProvider from "@/components/SmoothScrollProvider";
+import Footer from "@/components/Footer";
+import BackgroundWrapper from "@/components/BackgroundWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,12 +20,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full scroll-smooth antialiased" suppressHydrationWarning>
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className={`${inter.className} min-h-full flex flex-col bg-slate-50 text-slate-900`}>
-        <ThemeProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-        </ThemeProvider>
+        <SmoothScrollProvider>
+          <ThemeProvider>
+            <BackgroundWrapper />
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </SmoothScrollProvider>
       </body>
     </html>
   );

@@ -7,6 +7,7 @@ import GithubSection from "@/components/GithubSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
+import EducationAndExperience from "@/components/Education&Exprerience";
 
 export default function Home() {
   return (
@@ -14,8 +15,9 @@ export default function Home() {
       <Hero />
       <AboutSection />
       <TechStackSection />
-      <ProjectsSection />
       <SkillsSection />
+      <ProjectsSection />
+      <EducationAndExperience />
       <GithubSection />
       <ContactSection />
       <Footer />

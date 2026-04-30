@@ -1,7 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTheme } from "./ThemeProvider";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
   { 
@@ -34,33 +38,91 @@ export default function SkillsSection() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        defaults: { ease: "power3.out" }
+      });
+
+      tl.fromTo(titleRef.current, 
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 }
+      )
+      .fromTo(lineRef.current, 
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.8 },
+        "-=0.6"
+      )
+      .fromTo(descRef.current, 
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 },
+        "-=0.6"
+      );
+
+      const items = gridRef.current ? gsap.utils.toArray(".skill-card", gridRef.current) : [];
+      if (items.length) {
+        tl.fromTo(items, 
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.1,
+          },
+          "-=0.4"
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="skills" className={`py-20 transition-colors duration-300 ${isDark ? "bg-slate-900" : "bg-slate-50"}`}>
+    <section
+      ref={sectionRef}
+      id="skills"
+      className={`py-20 transition-colors duration-300 ${isDark ? "bg-slate-900" : "bg-slate-50"}`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? "text-slate-100" : "text-slate-900"}`}>My Skills</h2>
-          <div className="h-1 w-20 bg-sky-500 mx-auto rounded-full mb-6"></div>
-          <p className={`max-w-2xl mx-auto ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+        <div className="text-center mb-16">
+          <h2
+            ref={titleRef}
+            className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? "text-slate-100" : "text-slate-900"}`}
+          >
+            My Skills
+          </h2>
+          <div
+            ref={lineRef}
+            className="h-1 w-20 bg-sky-500 mx-auto rounded-full"
+          ></div>
+          <p
+            ref={descRef}
+            className={`max-w-2xl mx-auto mt-6 ${isDark ? "text-slate-400" : "text-slate-600"}`}
+          >
             I&apos;ve worked with a variety of technologies in the web development world.
             From Back-end To Design.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {skills.map((skillGroup, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 hover:border-slate-600 transition-all hover:bg-slate-800/60 group"
+              className={`skill-card p-6 rounded-2xl border transition-all group ${
+                isDark
+                  ? "bg-slate-800/40 border-slate-700/50 hover:border-slate-600 hover:bg-slate-800/60"
+                  : "bg-white border-slate-200 hover:border-sky-400 hover:shadow-lg"
+              }`}
             >
               <h3 className={`text-xl font-semibold mb-6 ${skillGroup.color} flex items-center gap-2`}>
                 <div className={`w-2 h-2 rounded-full ${skillGroup.bgColor.replace('/10', '')}`}></div>
@@ -68,15 +130,15 @@ export default function SkillsSection() {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {skillGroup.items.map((skill, i) => (
-                  <span 
-                    key={i} 
+                  <span
+                    key={i}
                     className={`px-3 py-1.5 ${skillGroup.bgColor} ${skillGroup.color} rounded-lg text-xs font-medium border border-transparent group-hover:border-slate-700/50 transition-colors`}
                   >
                     {skill}
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
