@@ -16,7 +16,7 @@ const projects = [
   {
     title: "HelpMate",
     description: "A comprehensive platform designed to streamline assistance and services. Includes a seamless interface for users to find help and for service providers to manage requests.",
-    tags: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+    tags: ["NextJs", "TypeScript", "JavaScript", "NodeJs", "ExpressJs", "Prisma ORM", "PostgreSQL", "Tailwind CSS", "Socket IO", "Stripe"],
     githubClient: "https://github.com/Rubel6623/HelpMate-Client",
     githubServer: "https://github.com/Rubel6623/HelpMate-Server",
     demo: "https://help-mate-frontend-rubel6623-rubel6623s-projects.vercel.app",
@@ -25,29 +25,20 @@ const projects = [
   {
     title: "SkillBridge",
     description: "An educational platform bridging the gap between learners and instructors. Features course management, progress tracking, and interactive learning modules.",
-    tags: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+    tags: ["NextJs", "TypeScript", "NodeJs", "ExpressJs", "Prisma ORM", "PostgreSQL", "Tailwind CSS"],
     githubClient: "https://github.com/Rubel6623/Skill-Bridge-Client",
     githubServer: "https://github.com/Rubel6623/Skill-Bridge-Server",
     demo: "https://skill-bridge-frontend-ksx3pqnwd-rubel6623s-projects.vercel.app",
     image: "/assets/SkillBridge.png"
   },
   {
-    title: "Chef Hut",
-    description: "A culinary exploration app for food enthusiasts. Discover new recipes, save favorites, and learn from top chefs with a visually appealing interface.",
-    tags: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
-    githubClient: "https://github.com/Rubel6623/chef-recipe-hunter-client-side",
-    githubServer: "https://github.com/Rubel6623/chef-recipe-hunter-server",
-    demo: "https://incredible-semifreddo-159c74.netlify.app",
-    image: "/assets/CheifHut.png"
-  },
-  {
-    title: "ToyZone",
-    description: "An engaging e-commerce marketplace dedicated to toys. Offers a playful UI, categorized toy browsing, and a seamless shopping experience for kids and parents.",
-    tags: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
-    githubClient: "https://github.com/Rubel6623/toy-marketplace-client",
-    githubServer: "https://github.com/Rubel6623/toy-marketplace-server",
-    demo: "https://benevolent-chaja-d47eb4.netlify.app",
-    image: "/assets/ToyZone.png"
+    title: "KrishiBondhu",
+    description: "A comprehensive agriculture platform connecting farmers with specialists. Features include real-time chat, equipment marketplace, and an interactive farmer dashboard.",
+    tags: ["NextJs", "TypeScript", "JavaScript", "NodeJs", "ExpressJs", "Prisma ORM", "PostgreSQL", "Tailwind CSS"],
+    githubClient: "https://github.com/Rubel6623/KrishiBondhu-Client",
+    githubServer: "https://github.com/Rubel6623/KrishiBondhu-Server",
+    demo: "https://krishi-bondhu-client-lf3r9s5l4-rubel6623s-projects.vercel.app",
+    image: "/assets/KrishiBondhu.png"
   }
 ];
 
